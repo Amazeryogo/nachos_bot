@@ -1,7 +1,7 @@
 This is the main development branch of the nachos bot, In this repo we add features that are usually unstabe and may not work. I advice you to not try this code on your bot as it is likely that it might not work.
 
 ## ROADMAP FOR THE NEAR FUTURE: <br/>
-### 1)Add a censoring feature    <br/>
+### 1)Add a censoring feature    <br/> (DONE)
 ### 2)A slotbot like feature     <br/>
 ### 3)MEMESSS!!! (I might add memes if i figure out how the reddit API works) <br/>
 
