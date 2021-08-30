@@ -9,7 +9,8 @@ import randfacts
 import random
 import pyjokes
 from discord import ChannelType, Guild, Member, Message, Role, Status, utils, Embed
-
+from add import token
+from mongo import *
 
 
 
@@ -107,10 +108,35 @@ async def on_message(message):
         embed.add_field(name=">ask", value="to ask you a question", inline=True)
         embed.add_field(name=">joke", value="for chuck norris jokes", inline=True)
         embed.add_field(name=">info", value="Information about you", inline=True)
+        embed.add_field(name=">censor [word]",value="To censor words (ADMIN ONLY)", inline=True)
+        embed.add_field(name=">delete [word]",value="To stop censoring a word (ADMIN ONLY)",inline=True)
+        embed.add_field(name=">words",value="To see the words you cant use",inline=True)
         #embed.add_field(name=">list", value="to show you how much discord you use", inline=True)
         embed.add_field(name="To help us add more features,", value="join our discord: https://discord.gg/dPXXPdpYYZ")
 
         await message.channel.send(embed=embed)
+
+
+    if message.content.startswith(">censor"):
+        if message.author.guild_permissions.administrator == True:
+            x = message.content
+            insert(x[8:],message.author.guild.id,message.author.id)
+            await message.channel.send("ADDED!")
+        else:
+            await message.channel.send("sorry, only admins can add words")
+    elif message.content.startswith(">delete"):
+        if message.author.guild_permissions.administrator == True:
+            x = message.content
+            delete_word(x[8:],message.author.guild.id)
+            await message.channel.send("OK DONE")
+        else:
+            message.channel.send("sorry, only admins can delete words")
+
+
+
+    if message.content.startswith(">words"):
+        x = get_word(message.author.guild.id)
+        await message.channel.send(str(x))
 
     if message.content.startswith(">joke"):
         My_joke = pyjokes.get_joke(language="en", category="all")
@@ -149,21 +175,7 @@ async def on_message(message):
             iiii(i)
         await message.channel.send("done!")
 
-
-
-
-
     if message.content.startswith(">info"):
-        cll()
-        namebluh()
-        for i in list:
-            iiii(i)
-        x = jj()
-        for i in x:
-            if i["user"] == message.author.name:
-                mes = str(str(i["messages"]) + " messages")
-            else:
-                pass
         if message.author.bot == False:
             roles = [role for role in message.author.roles]
             mom = message.author.name + "#" + message.author.discriminator
@@ -183,3 +195,15 @@ async def on_message(message):
             await message.channel.send(embed=embed)
         else:
             await message.channel.send("BOTS ARE NOT INVITED!")
+
+    z = message.content
+    r = get_word(message.author.guild.id)
+    for p in r:
+        for j in z.split(' '):
+            if p == j:
+                await message.channel.send("YOU SAID A BAD WORD")
+                await message.delete()
+
+
+
+client.run(token)
