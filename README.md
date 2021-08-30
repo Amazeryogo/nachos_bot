@@ -1,2 +1,1 @@
-# nachos_bot
-A Discord Bot 
+Its a discord bot, thats it
