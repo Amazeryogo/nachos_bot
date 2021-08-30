@@ -2,29 +2,37 @@ from pymongo import MongoClient
 
 client = MongoClient()
 db = client.nachosbot
+censor = db.censor
 
-censor = db.censorTest
 
-
-def insert_censor(word, guild_id, doneby):
+def insert(word, guild_id, doneby):
     try:
         word = {
             "word" : word,
             "guild_id": guild_id,
             "added_by": doneby
         }
-        censor = censor.insert_one(word)
+        censorx = censor.insert_one(word)
+        print(censorx)
         return 0
     except:
         return 1
     finally:
         print(word," was added in ",guild_id)
 
-
-def get_words(guild_id):
+def get_word(guild_id):
     words = []
-    x = censor.find({"guild_id":guild_id})
-    print(x)
-    words.append(x)
-
+    for x in censor.find():
+        if x["guild_id"] == guild_id:
+            words.append(x["word"])
+        else:
+            pass
     return words
+
+def delete_word(word,guild_id):
+    query = {
+        "word" : word,
+        "guild_id": guild_id
+    }
+    censor.delete_one(query)
+    return 0
