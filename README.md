@@ -3,7 +3,7 @@ This is the main development branch of the nachos bot, In this repo we add featu
 ## ROADMAP FOR THE NEAR FUTURE: <br/>
 ### 1)Add a censoring feature    <br/> (DONE)
 ### 2)A slotbot like feature     <br/>
-### 3)MEMESSS!!! (I might add memes if i figure out how the reddit API works) <br/>
+### 3)MEMESSS!!!  <br/> (DONE)
 
 
 Thats it for now, if you want to try the bot, here is the link
